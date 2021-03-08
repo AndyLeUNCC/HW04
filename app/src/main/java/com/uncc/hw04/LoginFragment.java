@@ -1,6 +1,8 @@
 package com.uncc.hw04;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -25,6 +27,7 @@ import java.util.Objects;
  * Login fragment let user login by the valid email and password.
  */
 public class LoginFragment extends Fragment {
+    iMainActivity mainActivity;
     Button btnLogin, btnCreateNewAccount;
     EditText edtEmail, edtPassword;
     String token;
@@ -95,12 +98,19 @@ public class LoginFragment extends Fragment {
          */
         btnCreateNewAccount.setOnClickListener(v -> {
             //Toast.makeText(getActivity(), "Fragment Login-click on Create New Account button", Toast.LENGTH_SHORT).show();
-            iMainActivity mainActivity = (MainActivity) getActivity();
+            onAttach(getContext());
             mainActivity.openRegisterWindow();
 
         });
 
         return loginView;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mainActivity = (MainActivity) context;
+        //mainActivity.openRegisterWindow();
     }
 
     /**

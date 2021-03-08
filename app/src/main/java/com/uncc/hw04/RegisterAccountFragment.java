@@ -7,6 +7,7 @@ package com.uncc.hw04;
  * 2. Andy Le
  */
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,7 +24,7 @@ import androidx.fragment.app.Fragment;
  * This fragment should allow a user to create a new account.
  */
 public class RegisterAccountFragment extends Fragment {
-
+    iMainActivity mainActivity;
     Button btnSubmit, btnCancel;
     EditText edtName, edtEmail, edtPassword;
     String token;
@@ -183,7 +184,7 @@ public class RegisterAccountFragment extends Fragment {
                 // cancel handling here
             } else {
                 DataServices.Account account = result.getResult();
-                iMainActivity mainActivity = (MainActivity) getActivity();
+                onAttach(getContext());
                 mainActivity.setAccountGoToAppCategoriesFragment(token, account);
 
             }
@@ -192,5 +193,12 @@ public class RegisterAccountFragment extends Fragment {
             buttonLocker(true);
 
         }
+
+    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mainActivity = (MainActivity) context;
+        //mainActivity.openRegisterWindow();
     }
 }
